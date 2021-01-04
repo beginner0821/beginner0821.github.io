@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>多线程初学总结 | beginner</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://beginner0821.github.io/favicon.ico?v=1609744993879">
+<link rel="stylesheet" href="https://beginner0821.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="进程和线程的区别 :
+区别在于进程是程序启动起来执行线程(默认线程main函数,gc垃圾回收线程)
+继承Thread类
+
+子类继承Thread类具备多线程能力
+启动线程 : 子类对象 . start();
+不建议使用 : 避免OOP单继承局..." />
+    <meta name="keywords" content="多线程" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://beginner0821.github.io">
+        <img src="https://beginner0821.github.io/images/avatar.png?v=1609744993879" class="site-logo">
+        <h1 class="site-title">beginner</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      一个小菜鸡的学习历程
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://beginner0821.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">多线程初学总结</h2>
+            <div class="post-date">2021-01-04</div>
+            
+              <div class="feature-container" style="background-image: url('https://beginner0821.github.io/post-images/duo-xian-cheng-chu-xue-zong-jie.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="进程和线程的区别">进程和线程的区别 :</h3>
+<p><strong>区别在于进程是程序启动起来执行线程(默认线程main函数,gc垃圾回收线程)</strong></p>
+<h3 id="继承thread类">继承Thread类</h3>
+<ul>
+<li>子类继承Thread类具备多线程能力</li>
+<li>启动线程 : 子类对象 . start();</li>
+<li><strong>不建议使用 : 避免OOP单继承局限性;</strong></li>
+</ul>
+<h3 id="实现runnable接口">实现Runnable接口</h3>
+<ul>
+<li>实现接口Runnable具有多线程能力</li>
+<li>启动线程 : 传入目标对象+Thread对象.start();</li>
+<li><strong>推进使用 : 避免了单继承的局限性,灵活方便,方便同一对象被多个线程使用</strong></li>
+</ul>
+<h3 id="实现callable接口">实现Callable接口</h3>
+<ol>
+<li>实现Callable接口,需要返回值类型</li>
+<li>重写call方法,需要抛出异常</li>
+<li>创建目标对象</li>
+<li>创建执行服务 : ExecutorService sec= Executors.newFixedThreadPool(1); // 创建固定线程数量的线程池</li>
+<li>提交执行 : Future<Boolean> rs= sec.submit(t1);</li>
+<li>获取结果 :   Boolean  r1=  re.get();</li>
+<li>关闭服务 : sec.shutdownNow();</li>
+</ol>
+<h3 id="callable的好处">Callable的好处</h3>
+<p>1.可以自定义返回值</p>
+<p>2.可以抛出异常</p>
+<h2 id="线程五大状态">线程五大状态</h2>
+<ol>
+<li>
+<p>创建状态     启动线程 -&gt;就绪状态</p>
+</li>
+<li>
+<p>就绪状态    获得CPU -&gt;运行状态</p>
+</li>
+<li>
+<p>阻塞状态   阻塞解除 -&gt;就绪状态</p>
+</li>
+<li>
+<p>运行状态   等待用户输入丶线程休眠等 -&gt;阻塞状态   ;</p>
+<p>线程自然执行完毕丶 外部干涉终止线程 -&gt;死亡状态</p>
+<p>释放CPU资源 -&gt;就绪状态</p>
+</li>
+<li>
+<p>死亡状态</p>
+</li>
+</ol>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://beginner0821.github.io/tag/Tr2dzPdKd/" class="tag">
+                    多线程
+                  </a>
+                
+              </div>
+            
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

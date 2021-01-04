@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://beginner0821.github.io</id>
     <title>beginner</title>
-    <updated>2021-01-04T07:13:02.671Z</updated>
+    <updated>2021-01-04T07:23:33.362Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://beginner0821.github.io"/>
     <link rel="self" href="https://beginner0821.github.io/atom.xml"/>
@@ -11,35 +11,58 @@
     <icon>https://beginner0821.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, beginner</rights>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://beginner0821.github.io/post/hello-gridea/</id>
-        <link href="https://beginner0821.github.io/post/hello-gridea/">
+        <title type="html"><![CDATA[多线程初学总结]]></title>
+        <id>https://beginner0821.github.io/post/duo-xian-cheng-chu-xue-zong-jie/</id>
+        <link href="https://beginner0821.github.io/post/duo-xian-cheng-chu-xue-zong-jie/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <updated>2021-01-04T07:17:50.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="进程和线程的区别">进程和线程的区别 :</h3>
+<p><strong>区别在于进程是程序启动起来执行线程(默认线程main函数,gc垃圾回收线程)</strong></p>
+<h3 id="继承thread类">继承Thread类</h3>
+<ul>
+<li>子类继承Thread类具备多线程能力</li>
+<li>启动线程 : 子类对象 . start();</li>
+<li><strong>不建议使用 : 避免OOP单继承局限性;</strong></li>
+</ul>
+<h3 id="实现runnable接口">实现Runnable接口</h3>
+<ul>
+<li>实现接口Runnable具有多线程能力</li>
+<li>启动线程 : 传入目标对象+Thread对象.start();</li>
+<li><strong>推进使用 : 避免了单继承的局限性,灵活方便,方便同一对象被多个线程使用</strong></li>
+</ul>
+<h3 id="实现callable接口">实现Callable接口</h3>
+<ol>
+<li>实现Callable接口,需要返回值类型</li>
+<li>重写call方法,需要抛出异常</li>
+<li>创建目标对象</li>
+<li>创建执行服务 : ExecutorService sec= Executors.newFixedThreadPool(1); // 创建固定线程数量的线程池</li>
+<li>提交执行 : Future<Boolean> rs= sec.submit(t1);</li>
+<li>获取结果 :   Boolean  r1=  re.get();</li>
+<li>关闭服务 : sec.shutdownNow();</li>
+</ol>
+<h3 id="callable的好处">Callable的好处</h3>
+<p>1.可以自定义返回值</p>
+<p>2.可以抛出异常</p>
+<h2 id="线程五大状态">线程五大状态</h2>
+<ol>
+<li>
+<p>创建状态     启动线程 -&gt;就绪状态</p>
+</li>
+<li>
+<p>就绪状态    获得CPU -&gt;运行状态</p>
+</li>
+<li>
+<p>阻塞状态   阻塞解除 -&gt;就绪状态</p>
+</li>
+<li>
+<p>运行状态   等待用户输入丶线程休眠等 -&gt;阻塞状态   ;</p>
+<p>线程自然执行完毕丶 外部干涉终止线程 -&gt;死亡状态</p>
+<p>释放CPU资源 -&gt;就绪状态</p>
+</li>
+<li>
+<p>死亡状态</p>
+</li>
+</ol>
 ]]></content>
     </entry>
 </feed>
